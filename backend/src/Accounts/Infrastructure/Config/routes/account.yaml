@@ -4,4 +4,4 @@ signup:
 
 users:
     path: /users
-    controller: App\Accounts\Infrastructure\Controller\UserController::list
+    controller: App\Accounts\Infrastructure\Controller\UserController::signin

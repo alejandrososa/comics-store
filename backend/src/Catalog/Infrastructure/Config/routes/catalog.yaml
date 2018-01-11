@@ -1,3 +1,7 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+heroes:
+    path: /heroes
+    controller: App\Catalog\Infrastructure\Controller\CatalogController::allHeroes
+
+heroe:
+    path: /heroe/{id}
+    controller: App\Catalog\Infrastructure\Controller\CatalogController::getHeroe

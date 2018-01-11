@@ -3,7 +3,7 @@ services:
     store:
         build:
             context: ./docker
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile-store
         container_name: comic-store-apache
         ports:
             - '80:80'
@@ -12,7 +12,9 @@ services:
         command: /bin/bash /var/www/html/docker/test-api.sh
 
     db:
-        image: mysql
+        build:
+            context: ./docker
+            dockerfile: Dockerfile-db
         env_file:
           - docker.env
         container_name: comic-store-db

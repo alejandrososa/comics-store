@@ -31,15 +31,13 @@ class UserSignUpType extends AbstractType
                     new NotBlank(['message' => 'user.exception.email.not_blank']),
                 ]
             ])
-            ->add('save', SubmitType::class, array(
-                'attr' => array('class' => 'save'),
-            ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'csrf_protection'   => false,
             'data_class' => UserSignUpRequest::class,
             'empty_data' => function (FormInterface $form) {
                 return new UserSignUpRequest(

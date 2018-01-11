@@ -1,0 +1,22 @@
+App\Common\Domain\Model\Event\StoredEvent:
+  type: entity
+  repositoryClass: App\Common\Infrastructure\Persistence\Doctrine\Repository\DoctrineEventStoreRepository
+  table: events
+  readOnly: false
+  id:
+    eventId:
+      type: integer
+      column: event_id
+      generator:
+      strategy: AUTO
+  fields:
+    eventBody:
+      column: event_body
+      type: text
+    typeName:
+      column: type_name
+      type: string
+      length: 255
+    occurredOn:
+      column: occurred_on
+      type: datetime

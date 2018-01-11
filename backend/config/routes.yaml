@@ -1,0 +1,8 @@
+accounts:
+    resource: "../src/Accounts/Infrastructure/Config/routes.yaml"
+
+backend:
+    resource: "../src/Backend/Infrastructure/Config/routes.yaml"
+
+Catalog:
+    resource: "../src/Catalog/Infrastructure/Config/routes.yaml"

@@ -1,0 +1,2 @@
+account:
+    resource: "routes/account.yaml"

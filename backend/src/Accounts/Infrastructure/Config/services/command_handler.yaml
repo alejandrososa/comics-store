@@ -1,0 +1,15 @@
+services:
+    app.your_controller:
+        class: App\Accounts\Infrastructure\Controller\UserController
+        arguments:
+            - '@tactician.commandbus'
+
+
+#    App\Accounts\Infrastructure\Controller\:
+#        resource: '../../Controller'
+#        tags: ['controller.service_arguments', '@tactician.commandbus']
+
+#    app.your_controller:
+#        class: App\Accounts\Infrastructure\Controller\UserController
+#        arguments:
+#            - '@tactician.commandbus'

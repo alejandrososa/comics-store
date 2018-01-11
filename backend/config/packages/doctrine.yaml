@@ -1,0 +1,51 @@
+parameters:
+    # Adds a fallback DATABASE_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'pdo_mysql'
+        server_version: '5.7'
+        charset: utf8mb4
+
+        # With Symfony 3.3, remove the `resolve:` prefix
+        url: '%env(resolve:DATABASE_URL)%'
+        types:
+            UserId:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserId
+            UserName:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserName
+            UserEmail:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserEmail
+            UserStatus:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserStatus
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            Common:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/src/Common/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Common\Domain\Model'
+                alias: Common
+            Account:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/src/Accounts/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Accounts\Domain\Model'
+                alias: Account
+            Backend:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/src/Backend/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Backend\Domain\Model'
+                alias: Backend
+            Catalog:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/src/Catalog/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Catalog\Domain\Model'
+                alias: Catalog

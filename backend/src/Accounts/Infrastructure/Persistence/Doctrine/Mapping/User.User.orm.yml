@@ -1,0 +1,39 @@
+App\Accounts\Domain\Model\User\User:
+  type: entity
+  repositoryClass: App\Accounts\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository
+  table: users
+  readOnly: false
+  indexes:
+    name_index:
+      columns: [name, email]
+  id:
+    id:
+      type: UserId
+  fields:
+    name:
+      type: UserName
+      length: 50
+      column: name
+    email:
+      type: UserEmail
+      length: 32
+      column: email
+      unique: false
+      options:
+        fixed: true
+        comment: User's email address
+    status:
+      type: UserStatus
+      column: status
+      nullable: false
+      options:
+        unsigned: true
+        default: 5
+    created:
+      type: datetime
+      column: created
+      nullable: false
+    updated:
+      type: datetime
+      column: updated
+      nullable: true

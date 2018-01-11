@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Demo!{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+{{ texto }}
+
+
+    <div class="symfony-blocks-welcome">
+        {{ form_start(form, { attr: attr|default({'class':'demo', novalidate: 'novalidate'}) }) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

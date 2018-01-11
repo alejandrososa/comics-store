@@ -1,0 +1,2 @@
+account:
+    resource: "routes/catalog.yaml"

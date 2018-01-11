@@ -1,0 +1,10 @@
+framework:
+    default_locale: '%locale%'
+    translator:
+        paths:
+            - '%kernel.project_dir%/src/Accounts/Infrastructure/Config/translations'
+            - '%kernel.project_dir%/src/Backend/Infrastructure/Config/translations'
+            - '%kernel.project_dir%/src/Catalog/Infrastructure/Config/translations'
+            - '%kernel.project_dir%/src/Common/Infrastructure/Config/translations'
+        fallbacks:
+            - '%locale%'

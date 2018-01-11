@@ -1,0 +1,28 @@
+version: '2'
+services:
+    store:
+        build:
+            context: ./docker
+            dockerfile: Dockerfile
+        container_name: comic-store-apache
+        ports:
+            - '80:80'
+        volumes:
+            - .:/var/www/html
+        command: /bin/bash /var/www/html/docker/test-api.sh
+
+    db:
+        image: mysql
+        env_file:
+          - docker.env
+        container_name: comic-store-db
+        volumes:
+            - ./data/db:/var/lib/mysql"
+        environment:
+            - MYSQL_DATABASE=store
+            - MYSQL_USER=dev
+            - MYSQL_PASSWORD=secret
+            - MYSQL_ROOT_PASSWORD=root
+            - TZ=Europe/Madrid
+        ports:
+            - 3307:3306

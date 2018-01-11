@@ -1,0 +1,8 @@
+doctrine_migrations:
+    dir_name: '%kernel.project_dir%/src/Common/Infrastructure/Migrations'
+    # namespace is arbitrary but should be different from App\Migrations
+    # as migrations classes should NOT be autoloaded
+    namespace: App\Common\Infrastructure\Migrations
+    table_name: migration_versions
+    name: Application Migrations
+    organize_migrations: false # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false

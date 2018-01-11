@@ -1,0 +1,7 @@
+signup:
+    path: /signup
+    controller: App\Accounts\Infrastructure\Controller\UserController::signup
+
+users:
+    path: /users
+    controller: App\Accounts\Infrastructure\Controller\UserController::list

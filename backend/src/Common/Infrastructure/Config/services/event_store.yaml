@@ -1,0 +1,12 @@
+services:
+
+#    common.persist_domain_event.subscriber:
+#        class: App\Common\Domain\Model\PersistDomainEventSubscriber
+#        arguments:
+#            - App\Common\Infrastructure\Persistence\Doctrine\Repository\DoctrineEventStoreRepository
+
+#    common.event_store:
+#        class: App\Common\Infrastructure\Services\EventStore
+#        arguments: ['@doctrine.orm.entity_manager']
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 0 }

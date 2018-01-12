@@ -11,10 +11,10 @@ namespace App\Accounts\Application\Response\User;
 use App\Accounts\Domain\Model\User\User;
 
 /**
- * Class UserSignUpResponse
+ * Class UserSignInResponse
  * @package App\Accounts\Application\Response\User
  */
-class UserSignUpResponse
+class UserSignInResponse
 {
     public $id;
     public $name;

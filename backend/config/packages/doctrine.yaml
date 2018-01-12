@@ -17,7 +17,9 @@ doctrine:
         types:
             UserId:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserId
             UserName:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserName
+            UserSurname:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserSurname
             UserEmail:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserEmail
+            UserPassword:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserPassword
             UserStatus:  App\Accounts\Infrastructure\Persistence\Doctrine\Types\DoctrineUserStatus
 
     orm:

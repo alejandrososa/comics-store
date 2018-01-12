@@ -9,6 +9,8 @@ services:
             - '80:80'
         volumes:
             - .:/var/www/html
+        links:
+            - db:mysqldb
         command: /bin/bash /var/www/html/docker/test-api.sh
 
     db:
@@ -28,3 +30,8 @@ services:
             - TZ=Europe/Madrid
         ports:
             - 3307:3306
+        command: mysqld --user=root --verbose --skip-sync-frm --innodb_flush_log_at_trx_commit=0 --innodb-support-xa=0 --bind-address=0.0.0.0 --query-cache-type=1
+
+volumes:
+  db:
+    driver: "local"

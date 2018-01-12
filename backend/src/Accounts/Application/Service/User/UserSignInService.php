@@ -8,11 +8,11 @@
 
 namespace App\Accounts\Application\Service\User;
 
-use App\Accounts\Application\Command\User\UserSignUpCommand;
-use App\Accounts\Application\Command\User\UserSignUpHandler;
+use App\Accounts\Application\Command\User\UserSigninCommand;
+use App\Accounts\Application\Command\User\UserSigninHandler;
 use App\Accounts\Application\Exception\UserAlreadyExistsException;
-use App\Accounts\Application\Request\User\UserSignUpRequest;
-use App\Accounts\Application\Response\User\UserSignUpResponse;
+use App\Accounts\Application\Request\User\UserSignInRequest;
+use App\Accounts\Application\Response\User\UserSignInResponse;
 use App\Accounts\Domain\Model\User\User;
 use App\Accounts\Domain\Model\User\UserDataTransformer;
 use App\Accounts\Domain\Model\User\UserDtoDataTransformer;
@@ -22,10 +22,10 @@ use App\Common\Application\Event\ApplicationService;
 use League\Tactician\CommandBus;
 
 /**
- * Class SignUpUserService
+ * Class UserSignInService
  * @package App\Accounts\Application\Service\User
  */
-class UserSignUpService implements ApplicationService
+class UserSignInService implements ApplicationService
 {
     /**
      * @var UserRepository
@@ -55,20 +55,16 @@ class UserSignUpService implements ApplicationService
     }
 
     /**
-     * @param UserSignUpRequest $request
-     * @return UserSignUpResponse
-     * @throws UserAlreadyExistsException
-     * @throws \Exception
+     * @param UserSignInRequest $request
+     * @return UserSignInResponse|UserDataTransformer
      */
     public function execute($request = null)
     {
         $this->assertEmailIsFree($request);
 
-        $commandHandler = new UserSignUpHandler($this->userRepository);
+        $commandHandler = new UserSignInHandler($this->userRepository);
         $user = $commandHandler->handle(
-            new UserSignUpCommand(
-                $request->name,
-                $request->surname,
+            new UserSignInCommand(
                 $request->email,
                 $request->password
             )
@@ -93,7 +89,7 @@ class UserSignUpService implements ApplicationService
 
     /**
      * @param User $user
-     * @return UserSignUpResponse|UserDataTransformer
+     * @return UserSignInResponse|UserDataTransformer
      */
     private function setResult(User $user)
     {

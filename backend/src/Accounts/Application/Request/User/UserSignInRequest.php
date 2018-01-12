@@ -9,28 +9,22 @@
 namespace App\Accounts\Application\Request\User;
 
 /**
- * Class UserSignUpRequest
+ * Class UserSignInRequest
  * @package App\Accounts\Application\Request\User
  */
-class UserSignUpRequest
+class UserSignInRequest
 {
-    public $name;
     public $email;
-    public $surname;
     public $password;
 
     /**
-     * SignUpUserRequest constructor.
-     * @param $name
-     * @param $surname
+     * UserSignInRequest constructor.
      * @param $email
      * @param $password
      */
-    public function __construct($name, $surname, $email, $password)
+    public function __construct($email, $password)
     {
-        $this->name = $name;
         $this->email = $email;
-        $this->surname = $surname;
         $this->password = $password;
     }
 }

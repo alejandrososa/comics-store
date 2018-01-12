@@ -14,6 +14,10 @@ App\Accounts\Domain\Model\User\User:
       type: UserName
       length: 50
       column: name
+    surname:
+      type: UserSurname
+      length: 50
+      column: surname
     email:
       type: UserEmail
       length: 32
@@ -22,6 +26,10 @@ App\Accounts\Domain\Model\User\User:
       options:
         fixed: true
         comment: User's email address
+    password:
+      type: UserPassword
+      length: 100
+      column: password
     status:
       type: UserStatus
       column: status

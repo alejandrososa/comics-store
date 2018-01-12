@@ -19,7 +19,9 @@ class UserRegistered implements DomainEvent
     private $userId;
     private $ocurredOn;
     private $userName;
+    private $userSurname;
     private $userEmail;
+    private $userPassword;
     private $userStatus;
     private $created;
 
@@ -27,20 +29,26 @@ class UserRegistered implements DomainEvent
      * UserRegistered constructor.
      * @param UserId $userId
      * @param UserName $userName
+     * @param UserSurname $userSurname
      * @param UserEmail $userEmail
+     * @param UserPassword $userPassword
      * @param UserStatus $userStatus
      * @param \DateTime $created
      */
     public function  __construct(
         UserId $userId,
         UserName $userName,
+        UserSurname $userSurname,
         UserEmail $userEmail,
+        UserPassword $userPassword,
         UserStatus $userStatus,
         \DateTime $created
     ) {
         $this->userId = $userId;
         $this->userName = $userName;
+        $this->userSurname = $userSurname;
         $this->userEmail = $userEmail;
+        $this->userPassword = $userPassword;
         $this->userStatus = $userStatus;
         $this->created = $created;
         $this->ocurredOn = new \DateTimeImmutable();
@@ -71,11 +79,27 @@ class UserRegistered implements DomainEvent
     }
 
     /**
+     * @return UserSurname
+     */
+    public function userSurname(): UserSurname
+    {
+        return $this->userSurname;
+    }
+
+    /**
      * @return UserEmail
      */
     public function userEmail(): UserEmail
     {
         return $this->userEmail;
+    }
+
+    /**
+     * @return UserPassword
+     */
+    public function userPassword(): UserPassword
+    {
+        return $this->userPassword;
     }
 
     /**

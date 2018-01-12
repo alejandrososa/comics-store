@@ -1,7 +1,10 @@
 signup:
     path: /signup
     controller: App\Accounts\Infrastructure\Controller\UserController::signup
+    methods:  [POST]
 
 users:
-    path: /users
+    path: /signin
     controller: App\Accounts\Infrastructure\Controller\UserController::signin
+    methods:  [POST]
+

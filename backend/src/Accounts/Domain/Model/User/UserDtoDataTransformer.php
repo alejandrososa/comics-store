@@ -38,6 +38,8 @@ class UserDtoDataTransformer implements UserDataTransformer
         return [
             'id' => $this->user->id()->id(),
             'name' => $this->user->name()->name(),
+            'surname' => $this->user->surname()->surname(),
+            'email' => $this->user->email()->email(),
         ];
     }
 }

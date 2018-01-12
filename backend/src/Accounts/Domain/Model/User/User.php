@@ -11,6 +11,7 @@ namespace App\Accounts\Domain\Model\User;
 use App\Common\Domain\Model\AggregateRoot;
 use App\Common\Domain\Model\EventSourcedAggregateRoot;
 use App\Common\Domain\Model\EventStream;
+use function Assert\thatAll;
 
 /**
  * Class User
@@ -18,34 +19,16 @@ use App\Common\Domain\Model\EventStream;
  */
 class User extends AggregateRoot implements EventSourcedAggregateRoot
 {
-    /**
-     * @var UserId
-     */
     private $id;
-
-    /**
-     * @var UserName
-     */
     private $name;
-
-    /**
-     * @var UserEmail
-     */
+    private $surname;
     private $email;
-
-    /**
-     * @var UserStatus
-     */
     private $status;
-
     /**
-     * @var \DateTime
+     * @var UserPassword
      */
+    private $password;
     private $created;
-
-    /**
-     * @var \DateTime
-     */
     private $updated;
 
     /**
@@ -65,14 +48,19 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
      * @param UserStatus $status
      * @return User
      */
-    public static function createNewFrom(UserName $name, UserEmail $email, UserStatus $status)
-    {
+    public static function createNewFrom(
+        UserName $name,
+        UserSurname $surname,
+        UserEmail $email,
+        UserPassword $password,
+        UserStatus $status
+    ){
         $userId = UserId::create();
         $user = new static($userId);
         $date = new \DateTime();
 
         $user->recordApplyAndPublishThat(
-            new UserRegistered($userId, $name, $email, $status, $date)
+            new UserRegistered($userId, $name, $surname, $email, $password, $status, $date)
         );
 
         return $user;
@@ -95,11 +83,27 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
     }
 
     /**
-     * @return string
+     * @return UserSurname
      */
-    public function email(): string
+    public function surname(): UserSurname
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @return UserEmail
+     */
+    public function email(): UserEmail
     {
         return $this->email;
+    }
+
+    /**
+     * @return UserPassword
+     */
+    public function password(): UserPassword
+    {
+        return $this->password;
     }
 
     /**
@@ -126,6 +130,11 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
         return $this->updated;
     }
 
+    public function verifyPassword(string $password): bool
+    {
+        return password_verify($password, $this->password()->password());
+    }
+
     protected function changeStatus(UserStatus $userStatus)
     {
         $this->recordApplyAndPublishThat(
@@ -137,7 +146,9 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
     {
         $this->id = $event->userId();
         $this->name = $event->userName();
+        $this->surname = $event->userSurname();
         $this->email = $event->userEmail();
+        $this->password = $event->userPassword();
         $this->status = $event->userStatus();
         $this->created = $event->userCreated();
     }

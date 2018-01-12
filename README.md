@@ -1,8 +1,25 @@
-# Docker Symfony Comics Store
+# Docker Symfony Angular Comics Store
 
-Docker-symfony gives you everything you need for developing Symfony application. This complete stack run with docker and [docker-compose](https://docs.docker.com/compose/).
+Docker symfony gives you everything you need for developing Symfony application. This complete stack run with docker and [docker-compose](https://docs.docker.com/compose/).
 
-## Installation
+## Installation fast
+
+First of all, the first thing you should do is configure the ip for the mysql database, edit the following file:
+
+    $ cp backend/.env.dist /backend/.env && nano backend/.env
+
+Edit with your ipaddress the following line:
+
+    DATABASE_URL=mysql://root:root@YOUR_IPADDRESS:3307/store
+
+Now execute the next command in your console:
+
+    $ sh deploy.sh
+    
+Enjoy :-)
+
+
+## Installation step by step
 
 1. Install [docker](https://docs.docker.com/compose/install/) and [docker-compose](https://docs.docker.com/compose/install/#install-compose)
 
@@ -22,15 +39,17 @@ Docker-symfony gives you everything you need for developing Symfony application.
 
     **Note:** For **OS X**, please take a look [here](https://docs.docker.com/docker-for-mac/networking/) and for **Windows** read [this](https://docs.docker.com/docker-for-windows/#/step-4-explore-the-application-and-run-examples) (4th step).
 
-4. Prepare Symfony app
-    1. Update .env
+4. Prepare Backend app
+
+    1. Go to backend directory
+    2. Update .env
 
         ```
         # .env
         DATABASE_URL=mysql://root:root@db:3307/store
         ```
 
-    2. Composer install & create database
+    3. Composer install & create database
 
         ```bash
         $ docker-compose exec store bash
@@ -40,14 +59,36 @@ Docker-symfony gives you everything you need for developing Symfony application.
         $ php bin/console doctrine:schema:update --force
         $ php bin/console doctrine:fixtures:load --no-interaction
         ```
+5. Prepare Frontend app
+    
+    1. Go to frontend directory 
+    2. Install nvm 
+        ```
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+        ```
+    3. Install Angular cli
+        ```
+        npm install -g @angular/cli
+        ```
+    4. Install all libraries javascript 
+        ```
+        npm install
+        ```
+    5. Compile the project
+        ```
+        ng build
+        ```
 
-5. Enjoy :-)
+6. Enjoy :-)
+
+* Visit [comics-store.com](http://comics-store.com)  
+
 
 ## Usage
 
 Just run `docker-compose up -d`, then:
 
-* Symfony app: visit [comics-store.com](http://comics-store.com)  
+* App: visit [comics-store.com](http://comics-store.com)  
 
 ## How it works?
 

@@ -17,6 +17,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CatalogController extends BaseController
 {
+    public function getSearch(Request $request): JsonResponse
+    {
+        $heroes = ['id' => 11, 'name' => 'Mr. Nice'];
+        return $this->json($heroes);
+    }
+
     public function allHeroes(Request $request): JsonResponse
     {
         $heroes = [

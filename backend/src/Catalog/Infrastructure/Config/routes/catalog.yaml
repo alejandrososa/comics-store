@@ -1,7 +1,14 @@
 heroes:
     path: /heroes
     controller: App\Catalog\Infrastructure\Controller\CatalogController::allHeroes
+    methods:  [GET]
 
 heroe:
     path: /heroe/{id}
     controller: App\Catalog\Infrastructure\Controller\CatalogController::getHeroe
+    methods:  [GET]
+
+heroe_search:
+    path: /heroe/search?{id}
+    controller: App\Catalog\Infrastructure\Controller\CatalogController::getSearch
+    methods:  [GET]

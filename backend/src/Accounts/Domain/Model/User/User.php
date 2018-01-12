@@ -24,9 +24,6 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
     private $surname;
     private $email;
     private $status;
-    /**
-     * @var UserPassword
-     */
     private $password;
     private $created;
     private $updated;
@@ -38,13 +35,14 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
     private function __construct(UserId $id)
     {
         $this->id = $id;
-
     }
 
     /**
      * Create user from parameters
      * @param UserName $name
+     * @param UserSurname $surname
      * @param UserEmail $email
+     * @param UserPassword $password
      * @param UserStatus $status
      * @return User
      */
@@ -130,9 +128,13 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
         return $this->updated;
     }
 
+    /**
+     * @param string $password
+     * @return bool
+     */
     public function verifyPassword(string $password): bool
     {
-        return password_verify($password, $this->password()->password());
+        return $this->password->equalTo(new UserPassword($password));
     }
 
     protected function changeStatus(UserStatus $userStatus)

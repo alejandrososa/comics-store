@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {environment} from "../../environments/environment";
-
+import { environment } from "../../environments/environment";
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -11,9 +10,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../domain/model/user';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+    })
 };
-
 
 
 @Injectable()
@@ -32,7 +33,7 @@ export class ApiAuthService {
     }
 
     login(user: User){
-        if (user.username !== '' && user.password != '' ) { // {3}
+        if (user.email !== '' && user.password != '' ) { // {3}
             this.loggedIn.next(true);
             this.router.navigate(['/']);
         }
@@ -133,4 +134,10 @@ export class ApiAuthService {
         // this.messageService.add('UserService: ' + message);
     }
 
+
+
+    private toHttpParams(params) {
+        return Object.getOwnPropertyNames(params)
+            .reduce((p, key) => p.set(key, params[key]), new HttpParams());
+    }
 }

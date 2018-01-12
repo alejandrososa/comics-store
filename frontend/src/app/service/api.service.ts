@@ -9,7 +9,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from '../domain/model/hero';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': 'application/json'
+    })
 };
 
 
@@ -48,7 +51,7 @@ export class ApiService {
 
     /** GET hero by id. Will 404 if id not found */
     getHero(id: number): Observable<Hero> {
-        const url = `${this.baseUrl}/${id}`;
+        const url = this.baseUrl + '/heroes/' + id;
         return this.http.get<Hero>(url).pipe(
             tap(_ => this.log(`fetched hero id=${id}`)),
             catchError(this.handleError<Hero>(`getHero id=${id}`))
@@ -61,7 +64,9 @@ export class ApiService {
             // if not search term, return empty hero array.
             return of([]);
         }
-        return this.http.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
+
+        const url = this.baseUrl + '/heroes/search?name=${term}';
+        return this.http.get<Hero[]>(url).pipe(
             tap(_ => this.log(`found heroes matching "${term}"`)),
             catchError(this.handleError<Hero[]>('searchHeroes', []))
         );

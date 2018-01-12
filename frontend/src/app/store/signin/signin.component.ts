@@ -31,10 +31,12 @@ export class SigninComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        console.log(this.model);
+        this.authenticationService.login(this.model.email, this.model.password)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    location.href = this.returnUrl;
                 },
                 error => {
                     this.alertService.error(error);

@@ -1,7 +1,6 @@
 twig:
     paths:
       - '%kernel.project_dir%/src/Accounts/Infrastructure/Ui/Views'
-      - '%kernel.project_dir%/src/Backend/Infrastructure/Ui/Views'
       - '%kernel.project_dir%/src/Catalog/Infrastructure/Ui/Views'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'

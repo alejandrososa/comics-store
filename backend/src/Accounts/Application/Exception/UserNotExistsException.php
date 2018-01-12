@@ -9,10 +9,10 @@
 namespace App\Accounts\Application\Exception;
 
 /**
- * Class UserAlreadyExistsException
+ * Class UserNotExistsException
  * @package App\Accounts\Application\Exception
  */
-class UserAlreadyExistsException extends \Exception
+class UserNotExistsException extends \Exception
 {
 
 }

@@ -11,6 +11,7 @@ namespace App\Accounts\Application\Service\User;
 use App\Accounts\Application\Command\User\UserSigninCommand;
 use App\Accounts\Application\Command\User\UserSigninHandler;
 use App\Accounts\Application\Exception\UserAlreadyExistsException;
+use App\Accounts\Application\Exception\UserNotExistsException;
 use App\Accounts\Application\Request\User\UserSignInRequest;
 use App\Accounts\Application\Response\User\UserSignInResponse;
 use App\Accounts\Domain\Model\User\User;
@@ -43,6 +44,11 @@ class UserSignInService implements ApplicationService
     private $commandBus;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * SignUpUserService constructor.
      * @param UserRepository $repository
      * @param CommandBus $bus
@@ -56,34 +62,39 @@ class UserSignInService implements ApplicationService
 
     /**
      * @param UserSignInRequest $request
-     * @return UserSignInResponse|UserDataTransformer
+     * @return UserSignInResponse|UserDataTransformer|mixed
+     * @throws UserNotExistsException
+     * @throws \Exception
      */
     public function execute($request = null)
     {
-        $this->assertEmailIsFree($request);
+        $this->assertExistEmail($request);
 
         $commandHandler = new UserSignInHandler($this->userRepository);
-        $user = $commandHandler->handle(
-            new UserSignInCommand(
+        $result = $commandHandler->handle(new UserSignInCommand(
                 $request->email,
                 $request->password
             )
         );
 
-        return $this->setResult($user);
+        if($result instanceof User){
+            return $this->setResult($result);
+        }
+
+        return $result;
     }
 
     /**
      * @param $request
-     * @throws UserAlreadyExistsException
+     * @throws UserNotExistsException
      */
-    private function assertEmailIsFree($request)
+    private function assertExistEmail($request)
     {
         $userEmail = new UserEmail($request->email);
-        $user = $this->userRepository->findByEmail($userEmail);
+        $this->user = $this->userRepository->findByEmail($userEmail);
 
-        if ($user) {
-            throw new UserAlreadyExistsException();
+        if (!$this->user) {
+            throw new UserNotExistsException();
         }
     }
 

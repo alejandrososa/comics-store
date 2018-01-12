@@ -40,19 +40,18 @@ class UserSigninHandler implements CommandHandler
      * @return mixed
      * @throws \Exception
      */
-    public function handle(Command $command): bool
+    public function handle(Command $command)
     {
         if(!$command instanceof UserSigninCommand){
             throw new \Exception('UserLoginHandler can only handle UserLoginCommand');
         }
 
+        $user = $this->repository->findByEmail(new UserEmail($command->getEmail()));
 
+        if($user->verifyPassword($command->getPassword())){
+            return $user;
+        }
 
         return false;
-//            new UserPassword($command->getPassword())
-//        );
-//
-//        $this->repository->findByEmail(new UserEmail($user));
-//
     }
 }

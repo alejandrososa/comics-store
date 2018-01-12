@@ -3,7 +3,6 @@
 imports:
     - { resource: "../src/Common/Infrastructure/Config/services.yaml" }
     - { resource: "../src/Accounts/Infrastructure/Config/services.yaml" }
-    - { resource: "../src/Backend/Infrastructure/Config/services.yaml" }
     - { resource: "../src/Catalog/Infrastructure/Config/services.yaml" }
 
 parameters:
@@ -28,10 +27,6 @@ services:
     # as action arguments even if you don't extend any base controller class
     App\Accounts\Infrastructure\Controller\:
         resource: '../src/Accounts/Infrastructure/Controller'
-        tags: ['controller.service_arguments', '@tactician.commandbus']
-
-    App\Backend\Infrastructure\Controller\:
-        resource: '../src/Backend/Infrastructure/Controller'
         tags: ['controller.service_arguments', '@tactician.commandbus']
 
     App\Catalog\Infrastructure\Controller\:

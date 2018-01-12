@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { RoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 
 import { AlertComponent } from './directives/alert/alert.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -24,34 +24,34 @@ import { HeroSearchComponent } from './store/hero-search/hero-search.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    SignupComponent,
-    SigninComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    HeroSearchComponent,
-    AlertComponent,
-  ],
-  imports: [
-    BrowserModule,
-    RoutingModule,
-    HttpClientModule,
-    FormsModule,
-  ],
-  providers: [
-      AuthGuard,
-      ApiService,
-      AlertService,
-      AuthenticationService,
-      UserService,
-      {
-          provide: HTTP_INTERCEPTORS,
-          useClass: JwtInterceptor,
-          multi: true
-      }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        SignupComponent,
+        SigninComponent,
+        HeroesComponent,
+        HeroDetailComponent,
+        HeroSearchComponent,
+        AlertComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        routing,
+    ],
+    providers: [
+        AuthGuard,
+        ApiService,
+        AlertService,
+        AuthenticationService,
+        UserService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

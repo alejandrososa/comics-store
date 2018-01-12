@@ -54,7 +54,7 @@ class UserSignUpHandler implements CommandHandler
             new UserName($command->getName()),
             new UserSurname($command->getSurname()),
             new UserEmail($command->getEmail()),
-            new UserPassword($command->getPassword()),
+            UserPassword::encryptFrom($command->getPassword()),
             UserStatus::activated()
         );
 

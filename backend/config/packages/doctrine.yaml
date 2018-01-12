@@ -39,12 +39,6 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Accounts/Infrastructure/Persistence/Doctrine/Mapping'
                 prefix: 'App\Accounts\Domain\Model'
                 alias: Account
-            Backend:
-                is_bundle: false
-                type: yml
-                dir: '%kernel.project_dir%/src/Backend/Infrastructure/Persistence/Doctrine/Mapping'
-                prefix: 'App\Backend\Domain\Model'
-                alias: Backend
             Catalog:
                 is_bundle: false
                 type: yml

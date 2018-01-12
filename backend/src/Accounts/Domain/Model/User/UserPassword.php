@@ -39,9 +39,26 @@ class UserPassword
         return $this->password;
     }
 
-    public static function equalTo(UserPassword $password)
+    /**
+     * @param string $password
+     * @return UserPassword
+     */
+    public static function encryptFrom(string $password): self
     {
+        $userPassword = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
 
+        return new self($userPassword);
+    }
+
+    /**
+     * @param UserPassword $password
+     * @return bool
+     */
+    public function equalTo(UserPassword $password): bool
+    {
+        $this->assertNotEmpty($password);
+
+        return password_verify($password->password(), $this->password);
     }
 
     /**
@@ -51,7 +68,7 @@ class UserPassword
     {
         $this->assertNotEmpty($password);
         $this->assertFitsLength($password);
-        $this->password = $this->encript($password);
+        $this->password = $password;
     }
 
     /**
@@ -75,11 +92,5 @@ class UserPassword
         if (strlen($password) > self::MAX_LENGTH) {
             throw new \DomainException('User password is too long');
         }
-    }
-
-    private function encript(string $password): string
-    {
-        $opciones = ['cost' => 12];
-        return password_hash($password, PASSWORD_BCRYPT, $opciones);
     }
 }

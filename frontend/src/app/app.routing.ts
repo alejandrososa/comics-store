@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
@@ -9,7 +8,7 @@ import { SigninComponent } from './store/signin/signin.component';
 import { HeroesComponent } from './store/heroes/heroes.component';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'signin' },
+    { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -19,8 +18,4 @@ const routes: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class RoutingModule { }
+export const routing = RouterModule.forRoot(routes,{ enableTracing: false });
